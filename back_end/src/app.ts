@@ -1,7 +1,8 @@
+import "express-async-errors";
 import express from "express";
 import contactRoutes from "./Routes/contactRouter";
 import userRoutes from "./Routes/userRouter";
-
+import errorMiddleware from "./Middleware/errorMiddleware";
 
 class App {
   server: any;
@@ -19,6 +20,7 @@ class App {
   routes() {
     this.server.use(userRoutes);
     this.server.use(contactRoutes);
+    this.server.use(errorMiddleware);
   }
 }
 

@@ -36,6 +36,40 @@ class ContactController {
 
     return res.status(204).send();
   }
+
+  async addPhone(req: Request, res: Response) {
+    const { phone } = req.body;
+    const { contact_id } = req.params;
+
+    const contactPhone = await ContactService.addPhone(phone, contact_id);
+
+    return res.json(contactPhone);
+  }
+
+  async deletePhone(req: Request, res: Response) {
+    const { phone_id } = req.params;
+
+    await ContactService.deletePhone(phone_id);
+
+    return res.status(204).send();
+  }
+
+  async addEmail(req: Request, res: Response) {
+    const { email } = req.body;
+    const { contact_id } = req.params;
+
+    const contactEmail = await ContactService.addEmail(email, contact_id);
+
+    return res.json(contactEmail);
+  }
+
+  async deleteEmail(req: Request, res: Response) {
+    const { email_id } = req.params;
+
+    await ContactService.deleteEmail(email_id);
+
+    return res.status(204).send();
+  }
 }
 
 export default new ContactController();

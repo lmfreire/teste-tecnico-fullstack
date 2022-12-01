@@ -13,22 +13,59 @@ datasource db {
 model User {
   id String @id @default(uuid())
   name String
-  email String
-  phone String
+  password String
   created_at DateTime @default(now())
+  Phone PhoneUser[]
+  Email EmailUser[]
 
   UserContact UserContact[]
 
   @@map("users")
 }
 
+model PhoneUser{
+  id String @id @default(uuid())
+  phone String
+  user_id String
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("phones_user")
+}
+
+model EmailUser{
+  id String @id @default(uuid())
+  email String @unique
+  user_id String
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("emails_user")
+}
+
 model UserContact {
   id String @id @default(uuid())
   name String
-  email String
-  phone String
   user_id String
-  user User @relation(fields: [user_id], references: [id])
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  Phone PhoneContact[]
+  Email EmailContact[]
 
   @@map("user_contact")
+}
+
+model PhoneContact{
+  id String @id @default(uuid())
+  phone String
+  user_contact_id String
+  user_contact UserContact @relation(fields: [user_contact_id], references: [id], onDelete: Cascade)
+
+  @@map("phones_contact")
+}
+
+model EmailContact{
+  id String @id @default(uuid())
+  email String
+  user_contact_id String
+  user_contact UserContact @relation(fields: [user_contact_id], references: [id], onDelete: Cascade)
+
+  @@map("email_contact")
 }

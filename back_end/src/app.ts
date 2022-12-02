@@ -1,4 +1,6 @@
 import "express-async-errors";
+import { NextFunction, Request, Response } from "express";
+import cors from "cors";
 import express from "express";
 import contactRoutes from "./Routes/contactRouter";
 import userRoutes from "./Routes/userRouter";
@@ -13,7 +15,17 @@ class App {
     this.routes();
   }
 
+  enableCors() {
+    const options: cors.CorsOptions = {
+      methods: "GET,POST,PATCH,DELETE",
+      origin: "*",
+    };
+
+    this.server.use(cors(options));
+  }
+
   middlewares() {
+    this.enableCors();
     this.server.use(express.json());
   }
 

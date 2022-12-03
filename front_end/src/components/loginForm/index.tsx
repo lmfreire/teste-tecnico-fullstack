@@ -9,6 +9,7 @@ export interface IUserLogin {
 const LoginUser = () => {
   const { handleSubmit, register } = useForm<IUserLogin>();
   const { loginUser } = useContext(UserContext);
+
   return (
     <form onSubmit={handleSubmit(loginUser)}>
       <label>email</label>

@@ -25,7 +25,7 @@ class UserController {
   }
 
   async listById(req: Request, res: Response) {
-    const { user_id } = req.params;
+    const user_id = req.user.id;
 
     const user = await UserService.listById(user_id);
     return res.json(user);

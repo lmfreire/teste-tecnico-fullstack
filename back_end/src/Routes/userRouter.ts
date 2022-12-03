@@ -24,12 +24,7 @@ userRoutes.post(
   UserController.addEmail
 );
 userRoutes.get("/list_user", UserController.list);
-userRoutes.get(
-  "/list_user_id/:user_id",
-  ErrorUserIdIsValidMiddleware,
-  IsOwnerMiddleware,
-  UserController.listById
-);
+userRoutes.get("/list_user_id/", IsOwnerMiddleware, UserController.listById);
 userRoutes.patch(
   "/update_user/:user_id",
   ErrorUserIdIsValidMiddleware,

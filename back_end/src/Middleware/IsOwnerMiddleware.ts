@@ -8,7 +8,7 @@ const IsOwnerMiddleware = async (
   next: NextFunction
 ) => {
   let token = req.headers.authorization;
-  const { user_id } = req.params;
+  // const { user_id } = req.params;
 
   if (!token) {
     throw new BadRequestError("Token Required");
@@ -22,14 +22,14 @@ const IsOwnerMiddleware = async (
       throw new UnauthorizedError("Invalid token");
     }
 
-    user = {
+    req.user = {
       id: decoded.id,
       email: decoded.email,
     };
 
-    if (decoded.id !== user_id) {
-      throw new UnauthorizedError("User token and id is not macth");
-    }
+    // if (decoded.id !== user_id) {
+    //   throw new UnauthorizedError("User token and id is not macth");
+    // }
   });
 
   next();

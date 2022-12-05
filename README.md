@@ -7,7 +7,7 @@
 #### Primeiramente clonamos o respositorio e logo partimos para as configurações específicas
 
 ### #Para o Back end vamos serquir os seguintes passos.
-#### Primeiro vamos abrir o arquivo e instalar as dependencias com o comando [yarn]
+#### Primeiro vamos abrir o arguivo e instalar as dependencias com o comando [yarn]
 #### Logo em seguida já podemos rodar nossa aplicação com o comando [yarn dev]
 
 ### #Para o Front end vamos serquir os seguintes passos.

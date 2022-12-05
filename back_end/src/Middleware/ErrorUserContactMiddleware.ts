@@ -27,6 +27,10 @@ const ErrorUserContactMiddleware = async (
       "Missings keys: {" + output.toString() + "} Is required"
     );
   }
+
+  if (data.name == "" || data.email == "") {
+    throw new BadRequestError("Values dont not empty");
+  }
   next();
 };
 

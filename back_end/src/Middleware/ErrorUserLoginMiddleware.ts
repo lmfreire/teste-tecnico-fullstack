@@ -27,6 +27,10 @@ const ErrorUserLoginMiddleware = async (
       "Missings keys: {" + output.toString() + "} Is required"
     );
   }
+
+  if (data.password == "" || data.email == "") {
+    throw new BadRequestError("Values dont not empty");
+  }
   next();
 };
 

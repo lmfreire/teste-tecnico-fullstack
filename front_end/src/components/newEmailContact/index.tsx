@@ -22,7 +22,7 @@ const NewEmailContact = ({ userId }: IEmailProps) => {
 
   return (
     <form className="Form-Header" onSubmit={handleSubmit(RegisterPhone)}>
-      <label>email</label>
+      <label>Cadastrar novo email</label>
       <input type="text" {...register("email")} />
 
       <button type="submit">Cadastrar</button>

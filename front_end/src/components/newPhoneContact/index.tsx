@@ -23,7 +23,7 @@ const NewPhoneContact = ({ userId }: IPhoneProps) => {
 
   return (
     <form className="Form-Header" onSubmit={handleSubmit(RegisterPhone)}>
-      <label>phone</label>
+      <label>Cadastrar novo telefone</label>
       <input type="text" {...register("phone")} />
 
       <button type="submit">Cadastrar</button>

@@ -3,18 +3,22 @@ import { ContactContext } from "../../contexts/ContactContext";
 import EditNameContact from "../editNameContact";
 import NewEmailContact from "../newEmailContact";
 import NewPhoneContact from "../newPhoneContact";
+import { StyledContact } from "./styled";
 
 const ListContacts = () => {
   const { contacts, DeletePhone, DeleteEmail, DeleteContact } =
     useContext(ContactContext);
   return (
-    <div>
-      <ul>
+    <StyledContact>
+      <ul className="card-contact">
         {contacts &&
           contacts.map((contact) => (
-            <li key={contact.id}>
-              <p>{contact.name}</p>
-              <EditNameContact id={contact.id} />
+            <li key={contact.id} className="card">
+              <div className="infos-contact">
+                <p>{contact.name}</p>
+                <EditNameContact id={contact.id} className="button-edit" />
+              </div>
+              <p>Emails: </p>
               <ul>
                 {contact.Email.map((email) => (
                   <li key={email.id}>
@@ -25,6 +29,7 @@ const ListContacts = () => {
                   </li>
                 ))}
               </ul>
+              <p>Telefones: </p>
               <ul>
                 {contact.Phone.map((phone) => (
                   <li key={phone.id}>
@@ -35,13 +40,18 @@ const ListContacts = () => {
                   </li>
                 ))}
               </ul>
-              <button onClick={() => DeleteContact(contact.id)}>Delete</button>
+
               <NewPhoneContact userId={contact.id} />
               <NewEmailContact userId={contact.id} />
+              <div>
+                <button onClick={() => DeleteContact(contact.id)}>
+                  Delete Contato
+                </button>
+              </div>
             </li>
           ))}
       </ul>
-    </div>
+    </StyledContact>
   );
 };
 

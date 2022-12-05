@@ -8,6 +8,11 @@ import NewPhone from "../../components/newPhone";
 import { ContactContext } from "../../contexts/ContactContext";
 import { UserContext } from "../../contexts/UserContexts";
 
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import { Container, style } from "./styled";
+
 interface IEmail {
   email: string;
   id: string;
@@ -43,6 +48,14 @@ const Home = () => {
   const { listContacts, contacts } = useContext(ContactContext);
   const [userReturn, setUserReturn] = useState<IUserReturn | null>(null);
 
+  const [openPhone, setOpenPhone] = useState(false);
+  const handleOpenPhone = () => setOpenPhone(true);
+  const handleClosePhone = () => setOpenPhone(false);
+
+  const [openEmail, setOpenEmail] = useState(false);
+  const handleOpenEmail = () => setOpenEmail(true);
+  const handleCloseEmail = () => setOpenEmail(false);
+
   useEffect(() => {
     if (!localStorage.getItem("user")) {
       setTimeout(() => {
@@ -71,45 +84,81 @@ const Home = () => {
   }, [contacts]);
 
   return (
-    <div>
-      <h1>Algo aqui</h1>
+    <Container>
       {userReturn && (
         <div>
           {
-            <>
-              <NewPhone userId={userReturn.id} />
-              <NewEmailContact userId={userReturn.id} />
-              <p>{userReturn.name}</p>
-              <ul>
-                {userReturn.Email.map((email) => (
-                  <li key={email.id}>
-                    {email.email}{" "}
-                    <button onClick={() => DeleteEmail(email.id)}>
-                      Delete
-                    </button>
-                  </li>
-                ))}
-              </ul>
+            <div className="Contacts">
+              <div className="Welcome-and-edit">
+                <p>Bem vindo: {userReturn.name}</p>
 
-              <ul>
-                {userReturn.Phone.map((phone) => (
-                  <li key={phone.id}>
-                    {phone.phone}{" "}
-                    <button onClick={() => DeletePhone(phone.id)}>
-                      Delete
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </>
+                <EditName id={userReturn?.id} />
+              </div>
+
+              <div className="Phones">
+                <div className="Infos-Phones">
+                  <p>Seus Telefones</p>
+                  <ul>
+                    {userReturn.Phone.map((phone) => (
+                      <li key={phone.id}>
+                        {phone.phone}{" "}
+                        <button onClick={() => DeletePhone(phone.id)}>
+                          Delete
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <Button onClick={handleOpenPhone}>
+                  Adicionar Novo Telefone
+                </Button>
+                <Modal
+                  open={openPhone}
+                  onClose={handleClosePhone}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                  className="Modal"
+                >
+                  <Box sx={style}>
+                    <NewPhone userId={userReturn.id} />
+                  </Box>
+                </Modal>
+              </div>
+
+              <div className="Emails">
+                <div className="Infos-Emails">
+                  <p>Seus Emails</p>
+                  <ul>
+                    {userReturn.Email.map((email) => (
+                      <li key={email.id}>
+                        {email.email}{" "}
+                        <button onClick={() => DeleteEmail(email.id)}>
+                          Delete
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <Button onClick={handleOpenEmail}>Adicionar Novo Email</Button>
+                <Modal
+                  open={openEmail}
+                  onClose={handleCloseEmail}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                  className="Modal"
+                >
+                  <Box sx={style}>
+                    <NewEmailContact userId={userReturn.id} />
+                  </Box>
+                </Modal>
+              </div>
+            </div>
           }
-          <EditName id={userReturn?.id} />
         </div>
       )}
-
       <CreateContact />
       <ListContacts />
-    </div>
+    </Container>
   );
 };
 

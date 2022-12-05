@@ -56,11 +56,14 @@ interface IUserContext {
   DeleteEmail: (id: string) => void;
   DeleteContact: (id: string) => void;
   editName: (data: INameContact) => void;
+  newContact: boolean;
+  SetNewContact: (data: boolean) => void;
 }
 
 const ContactProvider = ({ children }: IUserProviderProps) => {
   const { userToken } = useContext(UserContext);
   const [contacts, setContacts] = useState<IContactReturn[]>();
+  const [newContact, SetNewContact] = useState(false);
 
   function registerContact(data: IContact) {
     const userIdToken = localStorage.getItem("user");
@@ -78,6 +81,7 @@ const ContactProvider = ({ children }: IUserProviderProps) => {
       })
       .then((response) => {
         toast.success("Cadastro realizado com sucesso");
+        SetNewContact(false);
       })
       .catch((error) => {
         toast.error("Cadastro não efetuado verifique os dados");
@@ -191,6 +195,8 @@ const ContactProvider = ({ children }: IUserProviderProps) => {
         DeleteEmail,
         DeleteContact,
         editName,
+        newContact,
+        SetNewContact,
       }}
     >
       {children}

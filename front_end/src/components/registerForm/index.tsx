@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContexts";
+import { ContainarForm } from "./styled";
 
 interface IUser {
   name: string;
@@ -15,18 +16,21 @@ const RegisterUser = () => {
 
   return (
     <>
-      <form className="Form-Header" onSubmit={handleSubmit(registerUser)}>
-        <label>name</label>
+      <ContainarForm
+        className="Form-Header"
+        onSubmit={handleSubmit(registerUser)}
+      >
+        <label>Name</label>
         <input type="text" {...register("name")} />
-        <label>email</label>
+        <label>Email</label>
         <input type="text" {...register("email")} />
-        <label>phone</label>
+        <label>Phone</label>
         <input type="text" {...register("phone")} />
-        <label>password</label>
-        <input type="text" {...register("password")} />
+        <label>Password</label>
+        <input type="password" {...register("password")} />
 
         <button type="submit">Cadastrar</button>
-      </form>
+      </ContainarForm>
     </>
   );
 };

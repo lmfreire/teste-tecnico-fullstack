@@ -25,8 +25,9 @@ class UserService {
       include: {
         Email: true,
         Phone: true,
-      },
+      }
     });
+    
     return user;
   }
 
